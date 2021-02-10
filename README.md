@@ -1,7 +1,7 @@
 # Campaign Data Dashboard
 ## Background
 From March to November 2020, I was part of a team of Bluebonnet Data Fellows working on Donna Imam's campaign for the congressional seat in Texas's 31st District. I initially created this Dash page as a way to examine correlations between a mix of demographic variables and election results broken down by precinct, combining chloropleth maps with scatter and bar plots so as not to lose a geographic context that can often be important in these settings. Over time, I ended up adapting it for a variety of purposes, including turfcutting and live canvass progress + early vote tracking.           
-<img src="https://github.com/Dahlia-Dry/Campaign-Data-Dashboard/blob/master/example%20usage/main.png" width="80%" height="8I 0%">          
+<img src="https://github.com/Dahlia-Dry/Campaign-Data-Dashboard/blob/master/example%20usage/main.png" width="80%" height="80%">          
 I found the interactivity of Plotly/Dash to be very useful in exploring and communicating relationships between demographic and electoral trends in our district; this Dashboard makes liberal use of callbacks such that many permutations of plots that would be tedious to make individually are made available within a few clicks, and more detailed statistics are often just a mouse hover away.            
 <img src="https://github.com/Dahlia-Dry/Campaign-Data-Dashboard/blob/master/example%20usage/targeting.png" width="80%" height="80%">         
 This functionality also proved useful for understanding how to prioritize paid voter outreach, as we could really explore a large amount of different factors in ranking precincts from highest to lowest priority and instantaneously see how different selections altered our tentative ordering.             
