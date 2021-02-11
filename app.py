@@ -33,11 +33,14 @@ user = user_secret.readline().replace('\n','')
 password = user_secret.readline().replace('\n','')
 VALID_USERNAME_PASSWORD_PAIRS ={user:password}
 """
-
-#Initialize Data Params
-election_results_zip = []
+#**IMPORTANT SET VALUES HERE***************************************************
 resultscatalog = pd.read_csv('catalogs/election_results.csv')
 targetingcatalog = pd.read_csv('catalogs/targeting.csv')
+pctgeopath ="geometry/json/geojson-precincts.json"
+zipgeopath ="geometry/json/geojson-zips.json"
+#******************************************************************************
+#Initialize Data Params
+election_results_zip = []
 election_results_prec =resultscatalog['title'].tolist()
 target_metrics =targetingcatalog['title'].tolist()
 graphvars = [election_results_prec[0],election_results_prec[-1]] #just set starting defaults
@@ -66,7 +69,7 @@ if fastload:
     targetfig = go.Figure()
 else:
     merged = aggregate('Precincts', election_results_prec[0],resultscatalog)
-    with open("geometry/json/geojson-precincts.json") as geofile:
+    with open(pctgeopath) as geofile:
         j_file = json.load(geofile)
     df = merged[['PrecinctKey',election_results_prec[0]]]
     fig = go.Figure(data=go.Choropleth(
@@ -84,7 +87,7 @@ else:
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
     merged2 = aggregate('Precincts', election_results_prec[-1],resultscatalog)
-    with open("geometry/json/geojson-precincts.json") as geofile:
+    with open(pctgeopath) as geofile:
         j_file = json.load(geofile)
     df = merged2[['PrecinctKey',election_results_prec[-1]]]
     fig2 = go.Figure(data=go.Choropleth(
@@ -102,7 +105,7 @@ else:
     fig2.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
     merge_target= aggregate('Precincts','score',targetingcatalog,startermetrics,weights)
-    with open("geometry/json/geojson-precincts.json") as geofile:
+    with open(pctgeopath) as geofile:
         j_file = json.load(geofile)
     df = merge_target[['PrecinctKey','score','City']]
     targetfig = go.Figure(data=go.Choropleth(
@@ -274,7 +277,7 @@ def update_chloropleths(type, var,var2):
     """Updates chloropleths in response to change in granularity or vars"""
     merged = aggregate(type, var,resultscatalog)
     if type == 'Precincts':
-        with open("geometry/json/geojson-precincts.json") as geofile:
+        with open(pctgeopath) as geofile:
             j_file = json.load(geofile)
         df = merged[['PrecinctKey',var]]
         fig = go.Figure(data=go.Choropleth(
@@ -289,7 +292,7 @@ def update_chloropleths(type, var,var2):
             hovertemplate="PrecinctKey: %{location} | Value: %{z}<extra></extra>"
         ))
     else:
-        with open("geojson-zips.json") as geofile:
+        with open(zipgeopath) as geofile:
             j_file = json.load(geofile)
         df = merged[['zipcode', var]]
         fig = go.Figure(data=go.Choropleth(
@@ -308,7 +311,7 @@ def update_chloropleths(type, var,var2):
 
     merged = aggregate(type, var2,resultscatalog)
     if type == 'Precincts':
-        with open("geometry/json/geojson-precincts.json") as geofile:
+        with open(pctgeopath) as geofile:
             j_file = json.load(geofile)
         df = merged[['PrecinctKey',var2]]
         fig2 = go.Figure(data=go.Choropleth(
@@ -323,7 +326,7 @@ def update_chloropleths(type, var,var2):
             hovertemplate="PrecinctKey: %{location} | Value: %{z}<extra></extra>"
         ))
     else:
-        with open("geojson-zips.json") as geofile:
+        with open(zipgeopath) as geofile:
             j_file = json.load(geofile)
         df = merged[['zipcode', var2]]
         fig2 = go.Figure(data=go.Choropleth(
@@ -461,7 +464,7 @@ def update_targetmap(var,include,weights):
     else:
         merged = aggregate('Precincts', var,resultscatalog)
         df = merged[['PrecinctKey',var]]
-    with open("geometry/json/geojson-precincts.json") as geofile:
+    with open(pctgeopath) as geofile:
         j_file = json.load(geofile)
     fig = go.Figure(data=go.Choropleth(
         locations= df['PrecinctKey'],
@@ -578,7 +581,7 @@ def update_pctselections(click,jsondata):
     else:
         include.append(pctkey)
     merge_target= aggregate('Precincts','score',turfcatalog,startermetrics,weights)
-    with open("geometry/json/geojson-precincts.json") as geofile:
+    with open(pctgeopath) as geofile:
         j_file = json.load(geofile)
     df = merge_target[['PrecinctKey','score','City']]
     #df['score'] = [0 for x in range(len(df))]
@@ -714,7 +717,7 @@ def update_turftable(activatedjson):
     dash.dependencies.Input('trackingvar2', 'value')])
 def update_chloropleths(var,var2):
     merged = aggregate('Precincts', var,canvasscatalogue)
-    with open("geojson-willco-precincts.json") as geofile:
+    with open("geometry/json/geojson-willco-precincts.json") as geofile:
         j_file = json.load(geofile)
 
     df = merged[['PCTKEY',var]]
@@ -733,7 +736,7 @@ def update_chloropleths(var,var2):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
     merged = aggregate('Precincts', var2,canvasscatalogue)
-    with open("geojson-willco-precincts.json") as geofile:
+    with open("geometry/json/geojson-willco-precincts.json") as geofile:
         j_file = json.load(geofile)
     df = merged[['PCTKEY',var2]]
     fig2 = go.Figure(data=go.Choropleth(
