@@ -11,7 +11,7 @@ I tried my best to make the version of the Dashboard on here as adaptable as pos
 ### 1. Using Different Maps
 In the "geometry" folder, I have json and geojson data for the precincts and zipcodes in TX31. Replace these or add another district's geodata; the code uses both the json and geojson formats so both forms are needed. There's a function in utilities.py that can facilitate conversion between the two using pandas as an intermediary.
 ### 2. Adding Data to the Dashboard
-The dashboard uses csv files in the "catalogs" folder to map data files to variables in Plotly. See catalogs/format-explainer.md to understand proper formatting. Mapping single columns is straightforward; more complex preprocessing can be done by modifying the aggregate() function in utilities.py. The most important thing is making sure there's an exact mapping between labels in your geodata and labels in your other datasets.
+The dashboard uses csv files in the "catalogs" folder to map data files to variables in Plotly. See catalogs/format-explainer.md to understand proper formatting. Mapping single columns is straightforward; more complex preprocessing can be done by leaving the filename and titlevar fields blank and modifying the aggregate() function for specific titles in utilities.py. The most important thing is making sure there's an exact mapping between labels in your geodata and labels in your other datasets.
 ### 3. Direct App to Correct Paths
 Near the top of app.py, there is a place to insert the paths to the data catalog(s) and geodata sources to use. Make sure to change these so that they map to new data sources.       
 
