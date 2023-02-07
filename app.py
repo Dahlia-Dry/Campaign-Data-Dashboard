@@ -54,6 +54,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
     VALID_USERNAME_PASSWORD_PAIRS
 )"""
 server = app.server
+#^ for hosting on heroku
 #_______________________________________________________________________________
 #Initialize sort scores for targeting___________________________________________
 startermetrics =target_metrics[:3] #just set starting defaults
