@@ -5,9 +5,9 @@ Dash app visualizer for data mapped by precinct/zipcode
 Usage: Refer to README.md, see requirements.txt for dependencies
 """
 import dash
-import dash_table
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dash_table
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output, State, MATCH, ALL
 import dash_bootstrap_components as dbc
 import plotly.express as px
