@@ -160,7 +160,8 @@ app.layout = html.Div([
 def render_content(tab):
     if tab == 'tab-2': #Election Results [example]
         return html.Div(children=[
-            html.H1(children='TX31 Data Dashboard'), #page title goes here
+            html.H1(children='TX31 Data Dashboard',id='title'), #page title goes here
+            dbc.Tooltip("Set zoom to 50% for best viewing experience",target='title',placement='bottom'),
             html.Div([dcc.RadioItems(
                 id='granularity',
                 options=[{'label': i, 'value': i} for i in ['Precincts']],
