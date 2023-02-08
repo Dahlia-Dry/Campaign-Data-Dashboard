@@ -795,4 +795,4 @@ def update_canvass_scatter(var1,var2):
 
 #Run app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
